@@ -1,8 +1,0 @@
-For music to work, put REAL MP3 files in this same folder with these exact names:
-
-music.mp3 = background music
-my-song.mp3 = first song page
-final-song.mp3 = final song page
-
-Browser autoplay is blocked, so click the Play Background Music button first.
-If your file is .m4a or .wav, convert it to .mp3 or edit index.html.
