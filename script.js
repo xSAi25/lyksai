@@ -88,8 +88,158 @@ function finishPreloader(preloader) {
   if (fill) fill.style.width = "100%";
   if (!preloader || preloader.classList.contains("done")) return;
   preloader.classList.add("done");
-  window.setTimeout(() => preloader.remove(), 700);
+  window.setTimeout(() => {
+    preloader.remove();
+    const secretInput = document.getElementById("secretInput");
+    if (secretInput && document.body.classList.contains("secret-locked")) secretInput.focus();
+  }, 700);
 }
+
+function checkSecretAnswer() {
+  const input = document.getElementById("secretInput");
+  const hint = document.getElementById("secretHint");
+  const answer = (input ? input.value : "").trim().toLowerCase();
+
+  if (answer === "lyksai05312026") {
+    document.body.classList.add("secret-unlocking");
+    if (hint) hint.textContent = "The story remembers you...";
+    createSecretPetalBurst();
+    window.setTimeout(() => {
+      document.body.classList.remove("secret-locked", "secret-unlocking");
+      document.body.classList.add("secret-passed");
+    }, 850);
+    return;
+  }
+
+  if (hint) hint.textContent = "Hmm... I don’t think this story was waiting for that word.";
+  showGuestSongPath();
+}
+
+function stopFirstBackgroundSong() {
+  if (!bgMusicAuto) return;
+  try {
+    bgMusicAuto.pause();
+    bgMusicAuto.currentTime = 0;
+    bgMusicAuto.volume = 0;
+  } catch (error) {
+    // Silent fallback.
+  }
+  bgMusicStarted = false;
+  bgMusicFading = true;
+}
+
+function showGuestSongPath() {
+  stopFirstBackgroundSong();
+  document.body.classList.add("secret-unlocking");
+  window.setTimeout(() => {
+    document.body.classList.remove("secret-locked", "secret-unlocking", "envelope-locked");
+    document.body.classList.add("secret-guest", "envelope-opened");
+    if (envelopeIntro) envelopeIntro.classList.add("hide");
+    setGuestPages();
+    document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
+    currentPage = 8;
+    const page8 = document.getElementById("page8");
+    if (page8) page8.classList.add("active");
+    document.body.classList.add("long-scroll");
+    updateProgress(8);
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, 850);
+}
+
+function setGuestPages() {
+  const page8 = document.getElementById("page8");
+  const page9 = document.getElementById("page9");
+  if (page8) {
+    page8.innerHTML = `
+      <p class="small-title">A Quiet Detour</p>
+      <h2>Perhaps This Story Wasn’t Waiting For You</h2>
+      <p class="secret-guest-note">
+        It seems the secret wasn’t quite right. And that’s perfectly okay.
+        <br><br>
+        Not every story is meant to be read by everyone. Some stories are written for a single soul... a single smile... a single heartbeat.
+        <br><br>
+        If you happened to find this place by chance, thank you for stopping by. I sincerely hope that one day, someone loves you enough to create an entire world just for you.
+      </p>
+      <button type="button" onclick="guestNextPage()">One Last Thing →</button>
+    `;
+  }
+  if (page9) {
+    page9.innerHTML = `
+      <p class="small-title">Before You Go</p>
+      <h2>One Last Piece Of My Heart</h2>
+      <p class="secret-guest-note">
+        Since you’ve already made it this far, I’d like to share one last thing.
+        <br><br>
+        This song wasn’t written for fame. It wasn’t written for views. It was written for the one person this story has always belonged to.
+        <br><br>
+        Every lyric carries memories. Every melody carries hope. Every note carries love.
+        <br><br>
+        Even if this story wasn’t meant for you, thank you for listening. And if you’re lucky enough to have someone you love, never stop reminding them how much they mean to you.
+      </p>
+      <div class="song-card">
+        <div class="song-cover image-cover">
+          <img src="lyk1.webp" alt="Song cover" loading="lazy" decoding="async">
+        </div>
+        <audio id="guestSong" controls class="song-player">
+          <source src="my-song.mp3" type="audio/mpeg" />
+        </audio>
+      </div>
+      <button class="back replay-btn" type="button" onclick="leaveGuestStory()">Leave This Little Story 💌</button>
+    `;
+  }
+}
+
+function guestNextPage() {
+  if (!document.body.classList.contains("secret-guest")) return nextPage();
+  currentPage = 9;
+  showPage(9, "next");
+  window.setTimeout(() => {
+    const guestSong = document.getElementById("guestSong");
+    if (guestSong) guestSong.play().catch(() => {});
+  }, FLIP_DURATION + 120);
+}
+
+function createSecretPetalBurst() {
+  const gate = document.getElementById("secretGate");
+  if (!gate) return;
+  const burst = document.createElement("div");
+  burst.className = "final-burst";
+  burst.style.position = "fixed";
+  burst.style.inset = "0";
+  burst.style.pointerEvents = "none";
+  burst.style.zIndex = "10000";
+  const symbols = ["🌸", "💗", "✨", "💕", "❤"];
+  for (let i = 0; i < 30; i++) {
+    const span = document.createElement("span");
+    span.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    span.style.position = "absolute";
+    span.style.left = "50%";
+    span.style.top = "50%";
+    span.style.fontSize = `${15 + Math.random() * 18}px`;
+    span.style.transition = `transform ${900 + Math.random() * 700}ms ease, opacity ${900 + Math.random() * 700}ms ease`;
+    const angle = (Math.PI * 2 * i) / 30;
+    const dist = 90 + Math.random() * 190;
+    burst.appendChild(span);
+    requestAnimationFrame(() => {
+      span.style.transform = `translate(${Math.cos(angle) * dist}px, ${Math.sin(angle) * dist}px) rotate(${Math.random() * 360}deg)`;
+      span.style.opacity = "0";
+    });
+  }
+  document.body.appendChild(burst);
+  window.setTimeout(() => burst.remove(), 1800);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const secretInput = document.getElementById("secretInput");
+  if (secretInput) {
+    secretInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        checkSecretAnswer();
+      }
+    });
+  }
+});
 
 preloadAppAssets();
 
@@ -364,6 +514,14 @@ function showPage(page, direction = "next") {
 
 function nextPage() {
   if (isTurning) return;
+
+  // Guest/wrong-answer path is locked to Page 8 and Page 9 only.
+  // This prevents accidental access to the full love story by button, swipe, or keyboard.
+  if (document.body.classList.contains("secret-guest")) {
+    if (currentPage === 8) guestNextPage();
+    return;
+  }
+
   if (currentPage < totalPages) {
     currentPage++;
     showPage(currentPage, "next");
@@ -372,6 +530,16 @@ function nextPage() {
 
 function prevPage() {
   if (isTurning) return;
+
+  // Guest/wrong-answer path can only move back from Page 9 to Page 8.
+  if (document.body.classList.contains("secret-guest")) {
+    if (currentPage === 9) {
+      currentPage = 8;
+      showPage(8, "prev");
+    }
+    return;
+  }
+
   if (currentPage > 1) {
     currentPage--;
     showPage(currentPage, "prev");
@@ -478,12 +646,50 @@ function setupSwipeNavigation() {
 
 setupSwipeNavigation();
 function restart() {
+  if (document.body.classList.contains("secret-guest")) {
+    leaveGuestStory();
+    return;
+  }
   isTurning = false;
   currentPage = 1;
   document.body.classList.remove("final-cinematic-active", "long-scroll");
   if (finalAnswer) finalAnswer.textContent = "";
   if (noBtn) noBtn.style.transform = "translate(0, 0)";
   showPage(currentPage, "prev");
+}
+
+function leaveGuestStory() {
+  const guestSong = document.getElementById("guestSong");
+  if (guestSong) {
+    try {
+      guestSong.pause();
+      guestSong.currentTime = 0;
+    } catch (error) {
+      // Silent fallback.
+    }
+  }
+
+  document.querySelectorAll("audio, video").forEach(media => {
+    try {
+      media.pause();
+    } catch (error) {
+      // Silent fallback.
+    }
+  });
+
+  document.body.innerHTML = `
+    <main class="secret-gate" style="opacity:1;visibility:visible;pointer-events:auto;">
+      <div class="secret-card">
+        <div class="secret-icon">💌</div>
+        <h2>Thank You For Listening</h2>
+        <p class="secret-message">
+          This little story will stay where it belongs — waiting for the heart it was made for.
+          <strong>Take care, and may love find you softly too.</strong>
+        </p>
+        <button class="secret-btn" type="button" onclick="window.location.reload()">Back To The Beginning</button>
+      </div>
+    </main>
+  `;
 }
 
 function flipReason(card) {
@@ -584,7 +790,15 @@ let bgMusicFading = false;
 let finalSongStarted = false;
 
 function startBackgroundMusic() {
-  if (!bgMusicAuto || bgMusicFading) return;
+  // Do not play the first/background song while the secret gate is still locked,
+  // while the gate is transitioning, or when the visitor entered the wrong secret.
+  if (
+    !bgMusicAuto ||
+    bgMusicFading ||
+    document.body.classList.contains("secret-locked") ||
+    document.body.classList.contains("secret-unlocking") ||
+    document.body.classList.contains("secret-guest")
+  ) return;
 
   bgMusicAuto.loop = true;
   bgMusicAuto.volume = 0;
@@ -636,7 +850,13 @@ function fadeOutBackgroundMusicThenPlayFinalSong() {
 // Retry after any first interaction if browser blocked autoplay.
 ["click", "touchstart", "keydown"].forEach((eventName) => {
   document.addEventListener(eventName, () => {
-    if (!bgMusicStarted && !bgMusicFading) {
+    if (
+      !bgMusicStarted &&
+      !bgMusicFading &&
+      !document.body.classList.contains("secret-locked") &&
+      !document.body.classList.contains("secret-unlocking") &&
+      !document.body.classList.contains("secret-guest")
+    ) {
       startBackgroundMusic();
     }
   }, { once: true });
@@ -701,6 +921,11 @@ document.querySelectorAll(".page").forEach((page, index) => {
 
 // Desktop fallback: arrow keys also turn the book.
 document.addEventListener("keydown", (e) => {
+  if (document.body.classList.contains("secret-locked")) return;
+  if (document.body.classList.contains("secret-guest")) {
+    if (e.key === "ArrowRight" && currentPage === 8) guestNextPage();
+    return;
+  }
   if (e.key === "ArrowRight") nextPage();
   if (e.key === "ArrowLeft") prevPage();
 });
