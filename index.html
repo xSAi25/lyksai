@@ -8,7 +8,7 @@
 
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="envelope-locked">
+<body class="secret-locked envelope-locked">
   <div id="preloader" class="preloader" aria-label="Loading love story">
     <div class="preloader-card">
       <div class="preloader-heart">❤</div>
@@ -17,6 +17,26 @@
       <small id="preloaderText">Loading memories</small>
     </div>
   </div>
+
+  <section id="secretGate" class="secret-gate" aria-label="Secret entrance">
+    <div class="secret-card">
+      <div class="secret-icon">💌</div>
+      <p class="small-title">Before We Begin</p>
+      <h2>Some stories are written for everyone.</h2>
+      <p class="secret-message">
+        This isn’t one of them.
+        <br><br>
+        This little world was created with one person in mind—someone who means more to me than words could ever explain.
+        <br><br>
+        If you’re that person...
+        <strong>you’ll know exactly what to type.</strong>
+      </p>
+      <input id="secretInput" class="secret-input" type="text" autocomplete="off" placeholder="The answer is closer than you think..." aria-label="Secret word" />
+      <p id="secretHint" class="secret-hint" aria-live="polite"></p>
+      <button class="secret-btn" type="button" onclick="checkSecretAnswer()">Continue ❤️</button>
+    </div>
+  </section>
+
 
   <div id="fallingContainer" class="falling-container"></div>
 
