@@ -1645,3 +1645,344 @@ body.envelope-clicked .wax-seal::after{
 @media(prefers-reduced-motion:reduce){
   .preloader::before,.preloader::after,.preloader-card::after,.falling-item{animation:none!important;}
 }
+
+/* =========================================================
+   V6 UI REFRESH — Premium Romantic Glass Book Theme
+   Keeps existing HTML/JS intact, but gives the app a cleaner,
+   richer, more cinematic interface.
+   ========================================================= */
+:root{
+  --rose:#ff6f9f;
+  --rose2:#ffd1df;
+  --deep:#321226;
+  --wine:#8f2d56;
+  --cream:#fff8f1;
+  --glass:rgba(255,255,255,.58);
+  --line:rgba(255,255,255,.42);
+  --shadow:0 30px 90px rgba(72,16,48,.24);
+  --gold:#ffe0a8;
+}
+
+body{
+  color:var(--deep)!important;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(255,224,168,.48) 0 9%, transparent 30%),
+    radial-gradient(circle at 82% 16%, rgba(255,111,159,.42) 0 11%, transparent 34%),
+    radial-gradient(circle at 50% 88%, rgba(255,209,223,.58) 0 18%, transparent 42%),
+    linear-gradient(145deg,#2d1026 0%,#6b2348 38%,#ffe7ef 100%)!important;
+}
+
+body::before{
+  opacity:.30!important;
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.95) 0 1px,transparent 2px),
+    radial-gradient(circle,rgba(255,224,168,.80) 0 1px,transparent 2px)!important;
+  background-size:64px 64px,112px 112px!important;
+}
+
+body::after{
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.12)),
+    radial-gradient(circle at 50% 46%,transparent 0 32%,rgba(39,10,30,.18) 72%)!important;
+}
+
+.app{
+  width:min(490px,100%)!important;
+  height:min(880px,96dvh)!important;
+  border-radius:42px!important;
+  background:rgba(255,250,252,.28)!important;
+  border:1px solid rgba(255,255,255,.38)!important;
+  box-shadow:
+    0 34px 90px rgba(22,6,18,.38),
+    0 0 0 10px rgba(255,255,255,.08),
+    inset 0 1px 0 rgba(255,255,255,.70)!important;
+  backdrop-filter:blur(22px) saturate(1.12)!important;
+  -webkit-backdrop-filter:blur(22px) saturate(1.12)!important;
+}
+
+/* Removed the visible middle line for a cleaner single-card look. */
+.app::after{display:none!important;}
+.app::before{
+  inset:12px!important;
+  border-radius:32px!important;
+  border:1px solid rgba(255,255,255,.42)!important;
+  box-shadow:inset 0 0 38px rgba(255,255,255,.18)!important;
+}
+
+.page{
+  padding:56px 24px 104px!important;
+  border-radius:34px!important;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.78),rgba(255,244,249,.67)),
+    radial-gradient(circle at 18% 6%,rgba(255,224,168,.30),transparent 30%)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.85),
+    inset 0 -20px 45px rgba(255,150,190,.10)!important;
+}
+
+.page::before,
+.page::after{
+  opacity:.42!important;
+  filter:drop-shadow(0 6px 12px rgba(137,39,84,.16))!important;
+}
+
+.small-title{
+  background:rgba(255,255,255,.66)!important;
+  border:1px solid rgba(255,255,255,.72)!important;
+  color:#8f2d56!important;
+  box-shadow:0 10px 24px rgba(80,20,55,.10)!important;
+}
+
+h1,h2{
+  color:#8f2d56!important;
+  text-shadow:0 10px 30px rgba(143,45,86,.18)!important;
+}
+
+h1{font-size:clamp(55px,14vw,84px)!important;}
+h2{font-size:clamp(40px,11vw,58px)!important;}
+.subtitle,.subtitle-small{
+  color:rgba(50,18,38,.86)!important;
+}
+
+.page>button,
+.nav-buttons button,
+.choice-row button,
+.music-btn,
+.open-envelope-btn{
+  color:#fff!important;
+  background:linear-gradient(135deg,#ff5f97 0%,#9d2d61 100%)!important;
+  border:1px solid rgba(255,255,255,.38)!important;
+  box-shadow:
+    0 15px 32px rgba(143,45,86,.28),
+    inset 0 1px 0 rgba(255,255,255,.48)!important;
+  letter-spacing:.2px!important;
+}
+
+button:hover{
+  transform:translateY(-2px) scale(1.01)!important;
+  filter:brightness(1.04)!important;
+}
+
+.back{
+  color:#8f2d56!important;
+  background:rgba(255,255,255,.66)!important;
+  border:1px solid rgba(255,255,255,.78)!important;
+  box-shadow:0 12px 24px rgba(80,20,55,.10)!important;
+}
+
+.timeline-item,
+.food-card,
+.reason-card,
+.letter-box,
+.bucket-list label,
+.lyrics-box,
+.composer-note,
+.final-message-box,
+.solo-feature,
+.polaroid{
+  background:rgba(255,255,255,.62)!important;
+  border:1px solid rgba(255,255,255,.70)!important;
+  box-shadow:0 18px 42px rgba(63,16,45,.13)!important;
+  backdrop-filter:blur(18px) saturate(1.05)!important;
+  -webkit-backdrop-filter:blur(18px) saturate(1.05)!important;
+}
+
+.food-card,
+.reason-card,
+.letter-box,
+.lyrics-box,
+.composer-note,
+.final-message-box,
+.solo-feature{
+  border-radius:28px!important;
+}
+
+.food-card img,
+.polaroid img,
+.solo-feature img,
+.solo-grid img,
+.video-grid video,
+.love-video,
+.song-cover.image-cover,
+.final-song-cover.image-cover{
+  box-shadow:
+    0 18px 38px rgba(63,16,45,.16),
+    0 0 0 1px rgba(255,255,255,.58)!important;
+}
+
+.polaroid{
+  padding:10px 10px 17px!important;
+  border-radius:18px!important;
+}
+
+.progress{
+  left:24px!important;
+  right:24px!important;
+  bottom:18px!important;
+  padding:10px 12px!important;
+  border-radius:22px!important;
+  background:rgba(255,255,255,.70)!important;
+  border:1px solid rgba(255,255,255,.74)!important;
+  box-shadow:0 15px 34px rgba(63,16,45,.14)!important;
+  color:#8f2d56!important;
+}
+.progress-bar{
+  height:8px!important;
+  background:rgba(143,45,86,.13)!important;
+}
+#progressFill{
+  background:linear-gradient(135deg,#ff5f97,#ffe0a8)!important;
+}
+
+.envelope-intro{
+  background:
+    radial-gradient(circle at 50% 24%,rgba(255,255,255,.72),transparent 28%),
+    radial-gradient(circle at 12% 15%,rgba(255,224,168,.46),transparent 30%),
+    linear-gradient(145deg,#301126 0%,#7b2a50 48%,#ffe0eb 100%)!important;
+}
+.envelope-wrap{
+  filter:drop-shadow(0 30px 42px rgba(28,7,22,.35))!important;
+}
+.envelope-back{background:linear-gradient(135deg,#fff1f6,#ffbdd4)!important;}
+.envelope-flap{background:linear-gradient(145deg,#ffe1ec,#ff78a8)!important;}
+.envelope-front-left{background:linear-gradient(135deg,#ffc8db,#ef6f9f)!important;}
+.envelope-front-right{background:linear-gradient(225deg,#ffc8db,#df5f91)!important;}
+.envelope-front-bottom{background:linear-gradient(0deg,#e85f93,#ffd9e6)!important;}
+.wax-seal{
+  background:radial-gradient(circle at 30% 25%,#ffb3ca,#9d2d61 70%)!important;
+  box-shadow:0 12px 26px rgba(80,20,55,.28), inset 0 1px 0 rgba(255,255,255,.45)!important;
+}
+.intro-note{
+  color:rgba(255,255,255,.88)!important;
+  text-shadow:0 6px 18px rgba(30,8,24,.35)!important;
+}
+
+.preloader{
+  background:
+    radial-gradient(circle at 22% 18%,rgba(255,224,168,.44),transparent 30%),
+    radial-gradient(circle at 80% 20%,rgba(255,111,159,.38),transparent 32%),
+    linear-gradient(145deg,#2a0e22 0%,#77264e 50%,#ffe1ec 100%)!important;
+}
+.preloader-card{
+  background:rgba(255,255,255,.24)!important;
+  color:#fff!important;
+}
+.preloader-card p{color:#fff!important;}
+.preloader-heart{
+  background:radial-gradient(circle at 32% 25%,#ffe0a8,#ff5f97 58%,#8f2d56)!important;
+}
+
+.final-cinematic-page{
+  background:
+    radial-gradient(circle at 50% 10%,rgba(255,224,168,.28),transparent 32%),
+    linear-gradient(180deg,rgba(255,255,255,.78),rgba(255,241,247,.74))!important;
+}
+.final-message-box .signature{color:#8f2d56!important;}
+
+/* Mobile refinements */
+@media(max-width:480px){
+  body{padding:0!important;}
+  .app{
+    height:100dvh!important;
+    width:100%!important;
+    border-radius:0!important;
+    border:0!important;
+    box-shadow:none!important;
+  }
+  .app::before{display:none!important;}
+  .page{
+    border-radius:0!important;
+    padding:46px 16px 98px!important;
+  }
+  h1{font-size:clamp(48px,15vw,68px)!important;}
+  h2{font-size:clamp(34px,11vw,48px)!important;}
+  .subtitle{font-size:15.5px!important;}
+  .subtitle-small{font-size:13.8px!important;}
+  .progress{
+    left:12px!important;
+    right:12px!important;
+    bottom:12px!important;
+  }
+  .nav-buttons button,
+  .page>button,
+  .open-envelope-btn{
+    min-height:46px!important;
+    padding:12px 17px!important;
+  }
+  .envelope-scene{min-height:100dvh!important;}
+}
+
+@media(max-height:740px){
+  .page{padding-top:38px!important;}
+  .food-card img{aspect-ratio:16/9!important;}
+}
+
+/* Secret entrance after loading screen */
+.secret-gate{
+  position:fixed;
+  inset:0;
+  z-index:9996;
+  display:grid;
+  place-items:center;
+  padding:18px;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 20% 12%, rgba(255,194,216,.45), transparent 32%),
+    radial-gradient(circle at 80% 18%, rgba(243,232,255,.48), transparent 35%),
+    linear-gradient(180deg,#fff8fb 0%,#ffe5ef 100%);
+  transition:opacity .75s ease, visibility .75s ease, transform .75s ease;
+}
+body.assets-ready.secret-locked .secret-gate{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+body.secret-unlocking .secret-gate,
+body.secret-passed .secret-gate,
+body.secret-guest .secret-gate{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:scale(1.03);
+}
+body.secret-locked .envelope-intro,
+body.secret-locked .app{visibility:hidden;pointer-events:none;opacity:0;}
+body.secret-passed .envelope-intro{visibility:visible;pointer-events:auto;opacity:1;}
+body.secret-guest .app{visibility:visible;pointer-events:auto;opacity:1;}
+.secret-card{
+  width:min(430px,94vw);
+  max-height:92dvh;
+  overflow:auto;
+  text-align:center;
+  padding:28px 22px 30px;
+  border-radius:34px;
+  background:rgba(255,255,255,.62);
+  border:1px solid rgba(255,170,205,.58);
+  box-shadow:0 26px 80px rgba(178,58,112,.18), inset 0 1px 0 rgba(255,255,255,.86);
+  backdrop-filter:blur(18px);
+  animation:secretCardFloat 4.5s ease-in-out infinite;
+}
+@keyframes secretCardFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.secret-icon{
+  width:70px;height:70px;margin:0 auto 10px;border-radius:50%;display:grid;place-items:center;
+  font-size:32px;background:linear-gradient(135deg,#fff,#ffd7e6);box-shadow:0 15px 32px rgba(178,58,112,.18);
+}
+.secret-card h2{font-size:clamp(31px,9vw,45px);margin:8px 0 12px;line-height:1.02;}
+.secret-message{font-size:14.5px;line-height:1.7;margin:0 auto 18px;color:#6e294c;max-width:340px;}
+.secret-message strong{display:block;margin-top:8px;color:#b92962;font-size:16px;}
+.secret-input{
+  width:100%;border:1px solid rgba(255,126,179,.55);outline:none;border-radius:999px;
+  padding:14px 17px;text-align:center;font-family:'Poppins',sans-serif;font-weight:700;color:#7b244e;
+  background:rgba(255,255,255,.72);box-shadow:inset 0 0 0 1px rgba(255,255,255,.65),0 12px 28px rgba(178,58,112,.10);
+  transition:box-shadow .25s ease, transform .25s ease, border-color .25s ease;
+}
+.secret-input:focus{border-color:#ff4d88;box-shadow:0 0 0 5px rgba(255,126,179,.18),0 16px 36px rgba(178,58,112,.14);transform:translateY(-1px)}
+.secret-hint{min-height:20px;margin:10px 0 8px;color:#9b2d61;font-size:12.5px;font-weight:700;}
+.secret-btn{padding:13px 24px;border-radius:999px;color:#fff;font-weight:800;background:linear-gradient(135deg,#ff4d88,#b92962);box-shadow:0 14px 28px rgba(185,41,98,.22);}
+.secret-guest-note{font-size:15px;line-height:1.72;color:#6e294c;margin:14px auto;max-width:345px;}
+.secret-guest-note strong{color:#b92962;}
+.secret-listen-btn{display:inline-block;text-decoration:none;padding:13px 22px;border-radius:999px;color:#fff;font-weight:800;background:linear-gradient(135deg,#ff4d88,#b92962);box-shadow:0 14px 28px rgba(185,41,98,.22);}
+body.secret-guest .progress{display:none;}
+body.secret-guest .page-number-corner{display:none;}
